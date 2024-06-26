@@ -1,4 +1,4 @@
-package browser.go.cryptoapp.ui.theme
+package browser.go.cryptoapp.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

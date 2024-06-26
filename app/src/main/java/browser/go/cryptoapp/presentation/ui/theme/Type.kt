@@ -1,4 +1,4 @@
-package browser.go.cryptoapp.ui.theme
+package browser.go.cryptoapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

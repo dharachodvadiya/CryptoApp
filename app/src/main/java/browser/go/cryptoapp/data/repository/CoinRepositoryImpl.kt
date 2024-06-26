@@ -9,7 +9,7 @@ class CoinRepositoryImpl(
     private val api : CoinPaprikaApi
     ) : CoinRepository {
 
-    override suspend fun getCoin(): List<CoinDto> {
+    override suspend fun getCoins(): List<CoinDto> {
         return api.getCoins()
     }
 

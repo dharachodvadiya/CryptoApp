@@ -4,11 +4,17 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import browser.go.cryptoapp.common.Constants
 import browser.go.cryptoapp.common.Resource
+import browser.go.cryptoapp.di.AppModule
 import browser.go.cryptoapp.domain.model.CoinDetail
 import browser.go.cryptoapp.domain.use_case.get_coin.GetCoinUseCase
+import browser.go.cryptoapp.domain.use_case.get_coins.GetCoinsUseCase
+import browser.go.cryptoapp.presentation.coin_list.CoinListViewModel
 import browser.go.cryptoapp.presentation.dataState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,9 +28,10 @@ class CoinDetailViewModel(
     val state: State<dataState<CoinDetail>> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
+       /* savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
             getCoin(coinId)
-        }
+        }*/
+        getCoin("1")
     }
 
     private fun getCoin(coinId: String) {
@@ -43,5 +50,16 @@ class CoinDetailViewModel(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val repo = AppModule.provideCoinRepository(AppModule.providePaprikaApi())
+                val coinUseCase = GetCoinUseCase(repository = repo)
+                val savedStateHandle = SavedStateHandle();
+                CoinDetailViewModel(getCoinUseCase = coinUseCase, savedStateHandle = savedStateHandle)
+            }
+        }
     }
 }

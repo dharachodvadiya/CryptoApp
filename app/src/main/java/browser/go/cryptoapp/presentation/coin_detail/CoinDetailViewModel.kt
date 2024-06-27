@@ -1,5 +1,6 @@
 package browser.go.cryptoapp.presentation.coin_detail
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -16,10 +17,13 @@ import browser.go.cryptoapp.domain.use_case.get_coin.GetCoinUseCase
 import browser.go.cryptoapp.domain.use_case.get_coins.GetCoinsUseCase
 import browser.go.cryptoapp.presentation.coin_list.CoinListViewModel
 import browser.go.cryptoapp.presentation.dataState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class CoinDetailViewModel(
+@HiltViewModel
+class CoinDetailViewModel @Inject constructor(
     private val getCoinUseCase: GetCoinUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -28,10 +32,10 @@ class CoinDetailViewModel(
     val state: State<dataState<CoinDetail>> = _state
 
     init {
-       /* savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
+        savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let { coinId ->
             getCoin(coinId)
-        }*/
-        getCoin("1")
+        }
+        //getCoin("1")
     }
 
     private fun getCoin(coinId: String) {

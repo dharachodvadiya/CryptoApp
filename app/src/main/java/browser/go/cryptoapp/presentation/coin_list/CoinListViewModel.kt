@@ -12,10 +12,13 @@ import browser.go.cryptoapp.di.AppModule
 import browser.go.cryptoapp.domain.model.Coin
 import browser.go.cryptoapp.domain.use_case.get_coins.GetCoinsUseCase
 import browser.go.cryptoapp.presentation.dataState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class CoinListViewModel(
+@HiltViewModel
+class CoinListViewModel @Inject constructor(
     private val getCoinsUseCase: GetCoinsUseCase
 ) : ViewModel() {
 

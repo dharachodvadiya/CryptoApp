@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import browser.go.cryptoapp.presentation.coin_detail.components.CoinTag
 import browser.go.cryptoapp.presentation.coin_detail.components.TeamListItem
@@ -22,7 +23,7 @@ import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun CoinDetailScreen(
-    viewModel: CoinDetailViewModel
+    viewModel: CoinDetailViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
@@ -101,7 +102,7 @@ fun CoinDetailScreen(
             )
         }
         if(state.isLoading) {
-           // CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

@@ -19,7 +19,9 @@ import browser.go.cryptoapp.presentation.coin_detail.CoinDetailViewModel
 import browser.go.cryptoapp.presentation.coin_list.CoinListScreen
 import browser.go.cryptoapp.presentation.coin_list.CoinListViewModel
 import browser.go.cryptoapp.presentation.ui.theme.CryptoAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,16 +37,12 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.CoinListScreen.route
                         ) {
-                            val coinListViewModel : CoinListViewModel =
-                                viewModel(factory = CoinListViewModel.Factory)
-                            CoinListScreen(navController,coinListViewModel)
+                            CoinListScreen(navController)
                         }
                         composable(
-                            route = Screen.CoinDetailScreen.route + "/{coinId}"
+                            route = Screen.CoinDetailScreen.route + "/{coinId}",
                         ) {
-                            val coinDetailViewModel : CoinDetailViewModel =
-                                viewModel(factory = CoinDetailViewModel.Factory)
-                            CoinDetailScreen(coinDetailViewModel)
+                            CoinDetailScreen()
                         }
                     }
                 }
